@@ -1,0 +1,814 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIPES Constitution – FUTA Chapter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --navy:    #1a237e;
+      --royal:   #1565c0;
+      --gold:    #FFD700;
+      --light:   #f0f3fb;
+      --white:   #ffffff;
+      --grey:    #6b7280;
+      --border:  #dde3f5;
+      --sidebar-w: 270px;
+      --nav-h:   64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Barlow', sans-serif;
+      background: var(--light);
+      color: #1a1a2e;
+      min-height: 100vh;
+    }
+
+    /* ══ TOP NAV ══ */
+    .topnav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+      z-index: 200;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+
+    .topnav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .topnav-logo img {
+      height: 42px; width: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--gold);
+    }
+
+    .topnav-title {
+      color: var(--white);
+      font-weight: 900;
+      font-size: 16px;
+      letter-spacing: 1px;
+    }
+
+    .topnav-title span { color: var(--gold); }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      text-decoration: none;
+      color: var(--gold);
+      font-weight: 700;
+      font-size: 13px;
+      border: 1.5px solid var(--gold);
+      padding: 7px 16px;
+      border-radius: 50px;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover { background: var(--gold); color: var(--navy); }
+
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--gold);
+      font-size: 24px;
+    }
+
+    /* ══ LAYOUT ══ */
+    .layout {
+      display: flex;
+      margin-top: var(--nav-h);
+      min-height: calc(100vh - var(--nav-h));
+    }
+
+    /* ══ SIDEBAR ══ */
+    .sidebar {
+      width: var(--sidebar-w);
+      background: var(--white);
+      border-right: 1px solid var(--border);
+      position: fixed;
+      top: var(--nav-h);
+      left: 0; bottom: 0;
+      overflow-y: auto;
+      z-index: 100;
+      padding-bottom: 32px;
+    }
+
+    .sidebar-header {
+      background: var(--navy);
+      color: var(--gold);
+      font-weight: 900;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 14px 20px;
+    }
+
+    .sidebar-item {
+      display: block;
+      padding: 11px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--grey);
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      transition: all 0.2s;
+      line-height: 1.4;
+    }
+
+    .sidebar-item:hover { background: var(--light); color: var(--navy); border-left-color: var(--royal); }
+    .sidebar-item.active { background: #eef1fb; color: var(--navy); border-left-color: var(--gold); font-weight: 900; }
+
+    .article-label {
+      display: block;
+      font-size: 10px;
+      color: var(--gold);
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .sidebar-item.active .article-label { color: var(--navy); opacity: 0.6; }
+
+    /* ══ MAIN ══ */
+    .main {
+      margin-left: var(--sidebar-w);
+      flex: 1;
+      padding: 36px 48px 80px;
+      max-width: 920px;
+    }
+
+    /* Doc header */
+    .doc-header {
+      background: var(--navy);
+      border-radius: 12px;
+      padding: 36px 40px;
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .doc-header img {
+      height: 80px; width: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    .doc-header-text h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 32px;
+      letter-spacing: 1px;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .doc-header-text h1 span { color: var(--gold); }
+
+    .doc-header-text p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.7);
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .doc-meta { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+
+    .meta-tag {
+      background: rgba(255,215,0,0.15);
+      border: 1px solid var(--gold);
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 50px;
+      letter-spacing: 0.8px;
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 9px 18px;
+      border-radius: 50px;
+      border: 2px solid var(--border);
+      background: var(--white);
+      color: var(--grey);
+      font-family: 'Barlow', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .tab-btn:hover { border-color: var(--royal); color: var(--navy); }
+    .tab-btn.active { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+
+    /* Cards */
+    .section-card {
+      background: var(--white);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .section-card.visible { display: block; }
+
+    .section-card-header {
+      background: var(--navy);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .article-badge {
+      background: var(--gold);
+      color: var(--navy);
+      font-weight: 900;
+      font-size: 10px;
+      padding: 3px 10px;
+      border-radius: 50px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    .section-card-header h2 {
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 900;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .section-card-body { padding: 24px 28px; }
+
+    .section-block {
+      margin-bottom: 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-block:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--royal);
+      margin-bottom: 8px;
+    }
+
+    .section-text { font-size: 14px; color: #374151; line-height: 1.75; }
+
+    .section-list { margin-top: 8px; padding-left: 20px; }
+
+    .section-list li {
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.75;
+      margin-bottom: 6px;
+    }
+
+    .preamble-box {
+      background: linear-gradient(135deg, #eef1fb, #f9f9ff);
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--navy);
+      border-radius: 8px;
+      padding: 20px 24px;
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    .committee-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
+
+    .committee-tag {
+      background: #eef1fb;
+      border: 1px solid var(--border);
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 50px;
+    }
+
+    .officer-block {
+      background: var(--light);
+      border-left: 4px solid var(--gold);
+      border-radius: 0 8px 8px 0;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+
+    .officer-title {
+      font-weight: 900;
+      font-size: 13px;
+      color: var(--navy);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .sub-list { padding-left: 16px; margin-top: 4px; }
+    .sub-list li { font-size: 13px; color: #4b5563; list-style-type: disc; }
+
+    /* Scrollbar */
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); transition: transform 0.3s; }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; padding: 24px 18px 60px; }
+      .doc-header { flex-direction: column; text-align: center; }
+      .back-btn { display: none; }
+      .menu-toggle { display: block; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <a href="AIPES_FUTA_hero.html" class="topnav-logo">
+    <img src="AIPES logo main.jpg.png" alt="AIPES Logo" />
+    <span class="topnav-title">AIPES &nbsp;<span>CONSTITUTION</span></span>
+  </a>
+  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+  <a href="AIPES_FUTA_hero_1.html" class="back-btn">← Back to Home</a>
+</nav>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">📜 Table of Contents</div>
+    <a class="sidebar-item active"  onclick="showTab('preamble',this)"><span class="article-label">Intro</span>Preamble &amp; Overview</a>
+    <a class="sidebar-item" onclick="showTab('art1',this)"><span class="article-label">Article 1</span>Supremacy, Name &amp; Motto</a>
+    <a class="sidebar-item" onclick="showTab('art2',this)"><span class="article-label">Article 2</span>Aims &amp; Objectives</a>
+    <a class="sidebar-item" onclick="showTab('art3',this)"><span class="article-label">Article 3</span>Conformity with N.S.E</a>
+    <a class="sidebar-item" onclick="showTab('art4',this)"><span class="article-label">Article 4</span>Membership</a>
+    <a class="sidebar-item" onclick="showTab('art5',this)"><span class="article-label">Article 5</span>Patron / Matron</a>
+    <a class="sidebar-item" onclick="showTab('art6',this)"><span class="article-label">Article 6</span>Executive Committee</a>
+    <a class="sidebar-item" onclick="showTab('art7',this)"><span class="article-label">Article 7</span>Electoral Committee</a>
+    <a class="sidebar-item" onclick="showTab('art8',this)"><span class="article-label">Article 8</span>Activities</a>
+    <a class="sidebar-item" onclick="showTab('art9',this)"><span class="article-label">Article 9</span>Banking</a>
+    <a class="sidebar-item" onclick="showTab('art10',this)"><span class="article-label">Article 10</span>Amendment</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="doc-header">
+      <img src="AIPES_LOGO.jpeg" alt="AIPES Logo" />
+      <div class="doc-header-text">
+        <h1>AIPES <span>Constitution</span></h1>
+        <p>Association of Industrial and Production Engineering Students<br>
+           Federal University of Technology, Akure — FUTA Chapter<br>
+           P.M.B 704 Akure, Ondo State, Nigeria</p>
+        <div class="doc-meta">
+          <span class="meta-tag">✦ Advancing the Cause of Technology</span>
+          <span class="meta-tag">Last Reviewed 24/25</span>
+          <span class="meta-tag">FUTA Chapter</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="showTab('preamble',this)">Preamble</button>
+      <button class="tab-btn" onclick="showTab('art1',this)">Art. 1</button>
+      <button class="tab-btn" onclick="showTab('art2',this)">Art. 2</button>
+      <button class="tab-btn" onclick="showTab('art3',this)">Art. 3</button>
+      <button class="tab-btn" onclick="showTab('art4',this)">Art. 4</button>
+      <button class="tab-btn" onclick="showTab('art5',this)">Art. 5</button>
+      <button class="tab-btn" onclick="showTab('art6',this)">Art. 6</button>
+      <button class="tab-btn" onclick="showTab('art7',this)">Art. 7</button>
+      <button class="tab-btn" onclick="showTab('art8',this)">Art. 8</button>
+      <button class="tab-btn" onclick="showTab('art9',this)">Art. 9</button>
+      <button class="tab-btn" onclick="showTab('art10',this)">Art. 10</button>
+    </div>
+
+    <!-- PREAMBLE -->
+    <div class="section-card visible" id="tab-preamble">
+      <div class="section-card-header">
+        <span class="article-badge">Intro</span>
+        <h2>Preamble &amp; Review Committees</h2>
+      </div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Preamble</div>
+          <div class="preamble-box">
+            We the entire students of Industrial and Production Engineering department of Federal University of Technology, Akure (FUTA) having unanimously resolved together to come together as a body with the purpose of enlightening and working as a unit to promote technological advancement hereby establish and give ourselves this constitution which shall be called the Constitution of the Association of Industrial and Production Engineering Students (AIPES).
+          </div>
+        </div>
+        <div class="section-block">
+          <div class="section-label">First Review Committee — Year 21/22</div>
+          <div class="committee-grid">
+            <span class="committee-tag">Comr. Bolu Tolulope</span>
+            <span class="committee-tag">Comr. Ajewole James</span>
+            <span class="committee-tag">Comr. Onadeko Kofoworola</span>
+            <span class="committee-tag">Adesokan Adeniyi Israel (Esq)</span>
+            <span class="committee-tag">Hon. Aiki Opeyemi</span>
+          </div>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Second Review Committee — Year 24/25</div>
+          <div class="committee-grid">
+            <span class="committee-tag">Barr. Yisau Yomi</span>
+            <span class="committee-tag">Hon. Ibrahim Olumide</span>
+            <span class="committee-tag">Hon. Oyewole Joseph O.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 1 -->
+    <div class="section-card" id="tab-art1">
+      <div class="section-card-header"><span class="article-badge">Article 1</span><h2>Supremacy, Name, Motto &amp; Affiliation</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1 — Supremacy</div>
+          <p class="section-text">(1) The constitution is supreme and its provisions shall have binding force on all members of the Association.</p>
+          <p class="section-text" style="margin-top:8px">(2) Any law, directive or action inconsistent with the provisions of this constitution shall be null and void to the extent of its inconsistency.</p>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 2 — Name</div>
+          <p class="section-text">The Association shall be known and addressed as: <strong>"Association of Industrial and Production Engineering Students (AIPES) FUTA, Branch."</strong></p>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 3 — Motto</div>
+          <p class="section-text" style="font-size:20px;font-weight:900;color:var(--navy);">"Advancing the Cause of Technology"</p>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 4 — Affiliation</div>
+          <p class="section-text">The association is an affiliation of the <strong>Nigeria Society of Engineers (N.S.E)</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 2 -->
+    <div class="section-card" id="tab-art2">
+      <div class="section-card-header"><span class="article-badge">Article 2</span><h2>Aims &amp; Objectives</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1</div>
+          <ul class="section-list">
+            <li>To promote unity among the members.</li>
+            <li>To create a forum whereby knowledge and ideas can be exchanged between members and problems affecting the department discussed.</li>
+            <li>To improve the standard of technology.</li>
+            <li>To bring to the awareness of the society the importance of industrial and production engineering.</li>
+            <li>To ensure maximum utilization of our limited resources.</li>
+            <li>To find a means by which we can put across views and knowledge to the society.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 3 -->
+    <div class="section-card" id="tab-art3">
+      <div class="section-card-header"><span class="article-badge">Article 3</span><h2>Conformity with N.S.E By-Law</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1</div>
+          <p class="section-text">The relation of this association to the Nigeria Society of Engineers (N.S.E) shall be governed at all times by the constitution, by-laws and rules of the N.S.E. Any by-laws not in accordance is unconstitutional.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 4 -->
+    <div class="section-card" id="tab-art4">
+      <div class="section-card-header"><span class="article-badge">Article 4</span><h2>Membership</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1 — Eligibility</div>
+          <p class="section-text">Membership shall be open to all undergraduate students of the Department of Industrial and Production Engineering, FUTA.</p>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 2 — Duties of Members</div>
+          <ul class="section-list">
+            <li>All members are obliged to participate effectively and regularly in the activities of the association.</li>
+            <li>At the beginning of every session, every member — new and returning — shall pay the association dues and other levies agreed upon by 2/3 of the members before being allowed to register.</li>
+            <li>All student union representatives of the association shall give a report of meeting outcomes at every general meeting.</li>
+          </ul>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 3 — Code of Conduct</div>
+          <p class="section-text">Every member is expected to conduct themselves in an orderly manner at all general meetings of the association and the university community in general. Any erring member shall face the disciplinary committee appointed by the executive committee.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 5 -->
+    <div class="section-card" id="tab-art5">
+      <div class="section-card-header"><span class="article-badge">Article 5</span><h2>Patron / Matron</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1 — Appointment</div>
+          <p class="section-text">Any individual who associates with the advancement of Industrial and Production Engineering in our society shall be deemed fit to be appointed as a Patron or Matron of the association.</p>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 2 — Duties</div>
+          <ul class="section-list">
+            <li>Shall be an adviser to the association.</li>
+            <li>Shall attend the general meeting of the association when necessary.</li>
+            <li>Shall assist the association both morally and financially.</li>
+          </ul>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 3 — Staff Advisers</div>
+          <p class="section-text">There shall be two staff advisers for the association from the Department of Industrial and Production Engineering, Federal University of Technology, Akure.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 6 -->
+    <div class="section-card" id="tab-art6">
+      <div class="section-card-header"><span class="article-badge">Article 6</span><h2>Executive Committee</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1 — The 11 Offices</div>
+          <div class="committee-grid">
+            <span class="committee-tag">The President</span>
+            <span class="committee-tag">Vice President</span>
+            <span class="committee-tag">Secretary General</span>
+            <span class="committee-tag">Asst. Secretary General</span>
+            <span class="committee-tag">Financial Secretary</span>
+            <span class="committee-tag">PRO I</span>
+            <span class="committee-tag">PRO II</span>
+            <span class="committee-tag">Treasurer</span>
+            <span class="committee-tag">Welfare Director</span>
+            <span class="committee-tag">D.O Sport</span>
+            <span class="committee-tag">D.O Social</span>
+          </div>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 2 — General Duties</div>
+          <ul class="section-list">
+            <li>Shall set up various committees as deemed necessary and specify their duties.</li>
+            <li>Shall meet from time to time to discuss vital issues.</li>
+          </ul>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 3 — Individual Officer Duties</div>
+
+          <div class="officer-block">
+            <div class="officer-title">The President</div>
+            <ul class="section-list sub-list">
+              <li>Shall preside over all general meetings of the association.</li>
+              <li>Shall summon meetings of the general assembly through the secretary general.</li>
+              <li>Shall be a co-signatory to all financial dealings.</li>
+              <li>Shall co-ordinate the activities of the association.</li>
+              <li>Shall be the chief spokesman of the association.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Vice President</div>
+            <ul class="section-list sub-list">
+              <li>Shall assist the president in all duties.</li>
+              <li>Shall carry out other duties assigned by the executive council.</li>
+              <li>Shall deputize for the president in their absence.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Secretary General</div>
+            <ul class="section-list sub-list">
+              <li>Shall be responsible for all secretarial duties.</li>
+              <li>Shall summon general meetings at the request of the president or at least 1/3 of members.</li>
+              <li>Shall keep the attendance book of all general meetings.</li>
+              <li>Shall present a semester report on activities at the last general meeting.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Assistant Secretary General</div>
+            <ul class="section-list sub-list">
+              <li>Shall assist the secretary general in all duties.</li>
+              <li>Shall perform the duties of the secretary general in their absence.</li>
+              <li>Shall document minutes of executive meetings.</li>
+              <li>Shall maintain the register of all members.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Financial Secretary</div>
+            <ul class="section-list sub-list">
+              <li>Shall be responsible for keeping financial records of the association.</li>
+              <li>Shall be a co-signatory to the association's account.</li>
+              <li>Shall perform other duties assigned by the executive committee.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Public Relation Officer I (PRO I)</div>
+            <ul class="section-list sub-list">
+              <li>Shall publicize all activities of the association with executive approval.</li>
+              <li>Shall maintain communication links with similar associations in and outside the university.</li>
+              <li>Shall be the chairman of the Press Committee.</li>
+              <li>Shall prepare association bulletins on proposed activities and achievements.</li>
+              <li>Shall speak to the public on behalf of the association if delegated by the president.</li>
+              <li>Shall keep contact with the alumni of the association regularly.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Public Relation Officer II (PRO II)</div>
+            <ul class="section-list sub-list">
+              <li>Shall assist PRO I in all duties.</li>
+              <li>Shall assist in emergency response planning and updating.</li>
+              <li>Shall manage calendar activities and media lists.</li>
+              <li>Shall maintain the PRO I database and tracking metrics.</li>
+              <li>Shall participate in brainstorming sessions.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Treasurer</div>
+            <ul class="section-list sub-list">
+              <li>Shall keep in safe custody all revenue of the association.</li>
+              <li>Shall prepare semester budgets for association activities.</li>
+              <li>Shall be a co-signatory to the association's account.</li>
+              <li>Shall perform other duties assigned by the executive committee.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Welfare Director</div>
+            <ul class="section-list sub-list">
+              <li>Shall ensure efficient health services for all members.</li>
+              <li>Shall be responsible for adequate supply of water, electricity, quality food and related welfare matters.</li>
+              <li>Shall be the chairman of the welfare committee.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Director of Sport (D.O Sport)</div>
+            <ul class="section-list sub-list">
+              <li>Shall be the chairman of the union's sport committee.</li>
+              <li>Shall co-ordinate games and sporting activities.</li>
+              <li>Shall seek the association's participation in university sport competitions.</li>
+              <li>Shall publish updates on sporting activities within the university community and beyond.</li>
+            </ul>
+          </div>
+          <div class="officer-block">
+            <div class="officer-title">Director of Social (D.O Social)</div>
+            <ul class="section-list sub-list">
+              <li>Shall be responsible for organizing all social activities.</li>
+              <li>Shall be the chairman of the social committee.</li>
+              <li>Shall ensure indoor recreational facilities are provided for members.</li>
+              <li>Shall co-ordinate and review activities of students' societies, clubs and organizations.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 7 -->
+    <div class="section-card" id="tab-art7">
+      <div class="section-card-header"><span class="article-badge">Article 7</span><h2>Electoral Committee</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1 — Electoral Rules</div>
+          <ul class="section-list">
+            <li>Elections shall be conducted at least two weeks after the NUESA election of every academic session.</li>
+            <li>All members are eligible to vote.</li>
+            <li>Voting shall be by secret ballot.</li>
+            <li>Only matriculated members can contest elections.</li>
+            <li>There shall be bye elections for any vacant office(s) in the executive committee.</li>
+          </ul>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 2 — Qualifications for Election</div>
+          <ul class="section-list">
+            <li>The post of President shall come from the 300 level.</li>
+            <li>Must be a bona fide financial member of AIPES FUTA Chapter.</li>
+            <li>Must be a minimum age of 16 years; for presidency, must be at least 18 years of age.</li>
+            <li>Must possess a CGPA of not less than 3.5.</li>
+            <li>Part four and five students are not eligible to contest for any post.</li>
+            <li>Any member who fails to attend 2/3 of general meetings is not eligible to contest.</li>
+            <li>Must have satisfied the requirements of the electoral committee.</li>
+          </ul>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 3 — Resignation &amp; Removal from Office</div>
+          <ul class="section-list">
+            <li>Any officer wishing to resign shall give at least 30 days' official notice, accepted by 2/3 of the general assembly.</li>
+            <li>Any officer found guilty of misconduct or abuse of office shall be removed by the disciplinary committee.</li>
+            <li>The president shall approve every resignation letter with a signatory remark.</li>
+            <li>Any elected officer seeking re-election into any elective post shall first resign their present appointment.</li>
+            <li>No executive member is permitted to hold any other official position at school or university level while in office.</li>
+            <li>Any elected officer absent from the swearing-in ceremony and first business meeting without good cause shall be deemed to have forfeited their office.</li>
+            <li>The president may be impeached if found guilty of misconduct or misuse of power after proper investigation.</li>
+          </ul>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 4 — Stakeholders</div>
+          <ul class="section-list">
+            <li>Shall consist of the president, past presidents, honourables, class reps across levels and other notable leaders in the department.</li>
+            <li>Shall serve as the overseer of the central executive.</li>
+            <li>Shall attend to executive misunderstandings and problems.</li>
+            <li>Shall attend to other departmental duties if need be.</li>
+          </ul>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Section 5 — Bye Election</div>
+          <p class="section-text">Vacancies during a school year shall be filled at a called election at a regular meeting within 15 days of the vacancy.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 8 -->
+    <div class="section-card" id="tab-art8">
+      <div class="section-card-header"><span class="article-badge">Article 8</span><h2>Activities</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1 — Annual Activities</div>
+          <p class="section-text">The activities of the association shall include a welcome party/orientation for new intakes during the first semester and the association's week, held annually. It shall feature:</p>
+          <ul class="section-list">
+            <li>Symposium</li>
+            <li>Orientation</li>
+            <li>Sport Games</li>
+            <li>Dinner</li>
+            <li>Projects</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 9 -->
+    <div class="section-card" id="tab-art9">
+      <div class="section-card-header"><span class="article-badge">Article 9</span><h2>Banking</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1</div>
+          <p class="section-text">The association shall operate with any of the local commercial banks. The association shall operate a <strong>"Savings Account"</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ARTICLE 10 -->
+    <div class="section-card" id="tab-art10">
+      <div class="section-card-header"><span class="article-badge">Article 10</span><h2>Amendment</h2></div>
+      <div class="section-card-body">
+        <div class="section-block">
+          <div class="section-label">Section 1 — Amendment Process</div>
+          <ul class="section-list">
+            <li>Any registered member of the association can propose the amendment of any section(s) of this constitution, supported by 2/3 of members.</li>
+            <li>The president shall proceed to constitute a review committee for the amendment/review.</li>
+          </ul>
+        </div>
+        <div class="section-block">
+          <div class="section-label">Adoption Notice</div>
+          <div class="preamble-box">
+            This constitution was amended, reviewed and unanimously adopted at the general meeting of the association held on <strong>16th June 2017</strong> in the university premises by members of the association, and shall come into effect immediately.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  function showTab(id, clicked) {
+    document.querySelectorAll('.section-card').forEach(c => c.classList.remove('visible'));
+    document.getElementById('tab-' + id).classList.add('visible');
+    document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    if (clicked) clicked.classList.add('active');
+    if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
